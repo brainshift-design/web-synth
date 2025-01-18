@@ -3,7 +3,7 @@ import paramStyles from '../parameters/Parameter.module.css';
 import { ChangeEvent, ChangeEventHandler, CSSProperties } from 'react';
 
 interface ToggleProps {
-    label: string;
+    name: string;
     value: boolean;
     toggleColor?: string;
     valueColor?: string;
@@ -11,7 +11,7 @@ interface ToggleProps {
 }
 
 export default function Toggle({
-    label,
+    name: label,
     value,
     toggleColor = '#f4f3f1',
     valueColor = '#08f',

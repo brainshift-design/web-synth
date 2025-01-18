@@ -1,12 +1,12 @@
-import Port, { PortOptions } from './Port';
+import Port, { PortProps } from './Port';
 import { PortType } from './PortType';
 
 export default class Output extends Port
 {
-    constructor(options: PortOptions)
+    constructor(props: PortProps)
     {
         super({
-            ...options, 
+            ...props, 
             type: PortType.Output
         });
     }

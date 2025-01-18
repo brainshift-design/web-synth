@@ -16,11 +16,15 @@ export default class Graph
 
     addNode(node: Node)
     {
+        node.graph = this;
         this.nodes.push(node);
     }
 
     removeNode(id: string)
     {
+        const node = this.getNode(id);
+        if (node) node.graph = null;
+
         this.nodes = this.nodes.filter(node => node.id !== id);
     }
 

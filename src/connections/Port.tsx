@@ -1,3 +1,4 @@
+import Handle from '../components/Handle';
 import Parameter from '../parameters/Parameter';
 import { ConnectionType } from './ConnectionType';
 import { PortType } from './PortType';
@@ -5,7 +6,7 @@ import { PortType } from './PortType';
 export type ConnectHandler    = (port: Port) => void;
 export type DisconnectHandler = (port: Port) => void;
 
-export interface PortOptions
+export interface PortProps
 {
     id:              string;
     type:            PortType;
@@ -23,21 +24,32 @@ export default abstract class Port
     readonly type:           PortType;
     readonly connectionType: ConnectionType;
     
-    node:         Node;
-    parameter:    Parameter;
+    node:         Node              | null;
+    parameter:    Parameter         | null;
 
     onConnect:    ConnectHandler    | null;
     onDisconnect: DisconnectHandler | null;
 
 
-    constructor(options: PortOptions)
+    constructor(props: PortProps)
     {
-        this.id             = options.id;
-        this.type           = options.type;
-        this.connectionType = options.connectionType;
-        this.node           = options.node!;
-        this.parameter      = options.parameter!;
-        this.onConnect      = options.onConnect!;
-        this.onDisconnect   = options.onDisconnect!;
+        this.id             = props.id;
+        this.type           = props.type;
+        this.connectionType = props.connectionType;
+        this.node           = props.node         || null;
+        this.parameter      = props.parameter    || null;
+        this.onConnect      = props.onConnect    || null;
+        this.onDisconnect   = props.onDisconnect || null;
+    }
+
+
+    render(): React.ReactNode
+    {
+        return (
+            <Handle
+                id   = {this.id}
+                port = {this}
+            />
+        )
     }
 }

@@ -2,11 +2,17 @@ import Port from '../connections/Port';
 import Graph from '../graph/Graph';
 import Parameter from '../parameters/Parameter';
 
+export interface NodeProps
+{
+    id:     string;
+    graph?: Graph | null;
+}
+
 export default abstract class Node
 {
     readonly id: string;
     
-    graph: Graph;
+    graph:      Graph | null;
 
     parameters: Parameter[] = [];
     ports:      Port[]      = [];
@@ -25,10 +31,10 @@ export default abstract class Node
     }
     
 
-    constructor(id: string, graph: Graph)
+    constructor(props: NodeProps)
     {
-        this.id    = id;
-        this.graph = graph;
+        this.id    = props.id;
+        this.graph = props.graph || null;
     }
 
     addParameter(parameter: Parameter)
@@ -45,5 +51,23 @@ export default abstract class Node
     getParameter(id: string)
     {
         return this.parameters.find(param => param.id === id);
+    }
+
+    render(): React.ReactNode
+    {
+        return (
+            <div>
+                {this.renderParameters()}
+            </div>
+        );
+    }
+
+    renderParameters(): React.ReactNode
+    {
+        return (
+            <>
+                {this.parameters.map(param => param.render())}
+            </>
+        );
     }
 }

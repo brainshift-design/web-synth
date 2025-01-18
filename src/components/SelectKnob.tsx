@@ -12,40 +12,41 @@ import {
 } from 'react';
 import { Tau } from '../util';
 
-interface SelectKnobProps {
-    label: string;
-    value: number;
-    options: { value: string; label: string }[];
-    minAngle?: number;
-    maxAngle?: number;
-    sensitivity?: number;
-    knobColor?: string;
-    valueColor?: string;
-    tickSize?: number;
-    tickDistance?: number;
-    adjustTickX?: number;
-    adjustTickY?: number;
+interface SelectKnobProps 
+{
+    label:            string;
+    value:            number;
+    options:          { value: string; label: string }[];
+    minAngle?:        number;
+    maxAngle?:        number;
+    sensitivity?:     number;
+    knobColor?:       string;
+    valueColor?:      string;
+    tickSize?:        number;
+    tickDistance?:    number;
+    adjustTickX?:     number;
+    adjustTickY?:     number;
     adjustTickAngle?: number;
-    onChange?: ChangeEventHandler<HTMLInputElement>;
+    onChange?:        ChangeEventHandler<HTMLInputElement>;
 }
 
 export default function SelectKnob({
     label,
     value,
     options,
-    minAngle = (Tau * -3) / 8,
-    maxAngle = (Tau * 3) / 8,
-    sensitivity = 0.005,
-    knobColor = '#f4f3f1',
-    valueColor = 'var(--color-node-value)',
-    tickSize = 3,
-    tickDistance = 27,
-    adjustTickX = -1, // these are for manual
-    adjustTickY = 0, // adjustment of ticks
+    minAngle        = Tau * -3/8,
+    maxAngle        = Tau *  3/8,
+    sensitivity     = 0.005,
+    knobColor       = '#f4f3f1',
+    valueColor      = 'var(--color-node-value)',
+    tickSize        = 3,
+    tickDistance    = 27,
+    adjustTickX     = -1,   // these are for manual
+    adjustTickY     = 0,    // adjustment of ticks
     adjustTickAngle = 0.05, // because of CSS pixel grid issues
     onChange,
 }: SelectKnobProps) {
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef    = useRef<HTMLInputElement>(null);
     const onChangeRef = useRef(onChange);
 
     const [knobValue, setKnobValue] = useState(value);
