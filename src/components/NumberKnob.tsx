@@ -30,6 +30,7 @@ interface NumberKnobProps extends KnobProps
     ticks?:          number;
 }
 
+
 export default function NumberKnob({
     label,
     min,
@@ -70,13 +71,16 @@ export default function NumberKnob({
         startValue: 0,
     });
 
+
     useEffect(() => {
         onChangeRef.current = onChange;
     }, [onChange]);
 
+
     useEffect(() => {
         setCurvedValue(getCurvedValue(linearValue, min, max));
     }, [linearValue, getCurvedValue, min, max]);
+
 
     useEffect(() => {
         if (onChangeRef.current && curvedValue != oldCurvedValue) {
@@ -87,6 +91,7 @@ export default function NumberKnob({
 
         setOldCurvedValue(curvedValue);
     }, [curvedValue, oldCurvedValue]);
+
 
     const onPointerMove = useCallback(
         (e: globalThis.PointerEvent) => {
@@ -101,6 +106,7 @@ export default function NumberKnob({
         [min, max, sensitivity]
     );
 
+
     const onPointerUp = useCallback(
         (e: globalThis.PointerEvent) => {
             dragState.current.isDragging = false;
@@ -112,6 +118,7 @@ export default function NumberKnob({
         },
         [onPointerMove]
     );
+
 
     const onPointerDown = useCallback(
         (e: ReactPointerEvent<HTMLInputElement>) => {
@@ -133,6 +140,7 @@ export default function NumberKnob({
         [linearValue, onPointerMove, onPointerUp]
     );
 
+    
     const valueAngle = minAngle + ((linearValue - min) / (max - min)) * (maxAngle - minAngle);
 
     const tickAngle = (index: number) =>
@@ -148,7 +156,7 @@ export default function NumberKnob({
         (suffix && ' ') +
         suffix;
 
-    const [name, unit] = label.split('|');
+    const [name, unit] = label.split('|').map(s => s.trim());
 
     return (
         <div

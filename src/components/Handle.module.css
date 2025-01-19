@@ -6,20 +6,23 @@
         0 0 0 2px #bbb;
 }
 
-.inputHandle {
-    left: 4px;
-    top: calc(50% - 6px);
-    width: 10px;
-    height: 10px;
-    border: none;
-    box-shadow: var(--handle-shadow);
+.handle
+{
+    position:      absolute;
+    top:           calc(50% - 6px);
+    width:         10px;
+    height:        10px;
+    border:        none;
+    box-shadow:    var(--handle-shadow);
+    border-radius: 50%;
 }
 
-.outputHandle {
+.inputHandle 
+{
+    left: 4px;
+}
+
+.outputHandle 
+{
     right: 4px;
-    top: calc(50% - 6px);
-    width: 10px;
-    height: 10px;
-    border: none;
-    box-shadow: var(--handle-shadow);
 }

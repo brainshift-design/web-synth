@@ -28,7 +28,8 @@ export default function GraphView() {
                 elementsSelectable = {true}
                 selectNodesOnDrag  = {false}
                 panOnDrag          = {[1, 2]}
-                fitView
+                fitView            = {false}
+                defaultViewport    = {{ x: 0, y: 0, zoom: 1 }}
                 connectionLineComponent={ConnectingWire}
                 deleteKeyCode      = {['Delete', 'Backspace']}
                 onNodesChange      = {onNodesChange}

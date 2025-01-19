@@ -23,9 +23,6 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      'key-spacing': ['error', {
-        'align': 'value'
-      }]
     },
   }
 )

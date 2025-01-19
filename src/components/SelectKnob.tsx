@@ -126,10 +126,11 @@ export function SelectKnob({
 
     return (
         <div
-            className={`${paramStyles.parameter} ${knobStyles.knobContainer}`}
-            data-knob-color={knobColor}
-            data-value-color={valueColor}
-            style={
+            className        = {`${paramStyles.parameter} ${knobStyles.knobContainer}`}
+            data-knob-color  = {knobColor}
+            data-value-color = {valueColor}
+            style =
+            {
                 {
                     '--knob-color':       knobColor,
                     '--knob-value-color': valueColor,
@@ -143,9 +144,10 @@ export function SelectKnob({
             <div className={knobStyles.infoContainer}>
                 {Array.from({ length: nTicks }).map((_, index) => (
                     <div
-                        key={index}
-                        className={knobStyles.knobTick}
-                        style={{
+                        key       = {index}
+                        className = {knobStyles.knobTick}
+                        style =
+                        {{
                             height:    `${tickSize}px`,
                             transform: `translate(${adjustTickX}px, ${adjustTickY}px) rotate(${tickAngle(index)}rad) translate(-50%, -${tickDistance}px)`,
                         }}
@@ -162,7 +164,11 @@ export function SelectKnob({
 
                     <div
                         className={knobStyles.knobValue}
-                        style={{ transform: `rotate(${valueAngle}rad)` }}
+                        style=
+                        {{ 
+                            transform:  `rotate(${valueAngle}rad)`,
+                            transition: 'transform 0.025s ease-in-out'
+                        }}
                     ></div>
                 </div>
             </div>

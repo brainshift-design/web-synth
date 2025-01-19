@@ -5,6 +5,8 @@ import Parameter from '../parameters/Parameter';
 import { Node as ReactFlowNode, NodeProps as ReactFlowNodeProps } from 'reactflow';
 import { PortType } from '../connections/PortType';
 import { createId } from '../utils';
+import Input from '../connections/Input';
+import Output from '../connections/Output';
 
 
 export interface NodeProps
@@ -62,16 +64,39 @@ export default abstract class Node
     removeParameter(id: string)
     {
         const index = this.parameters.findIndex(param => param.id === id);
-        
-        return index > -1
-            ? this.parameters.splice(index, 1)
-            : null;
+        return index > -1 ? this.parameters.splice(index, 1) : null;
     }
 
 
     getParameter(id: string)
     {
         return this.parameters.find(param => param.id === id);
+    }
+
+
+    addInput(input: Input)
+    {
+        this.ports.push(input);
+    }
+
+
+    addOutput(output: Output)
+    {
+        this.ports.push(output);
+    }
+
+
+    removeInput(input: Input)
+    {
+        const index = this.ports.findIndex(port => port.id === input.id);
+        return index > -1 ? this.ports.splice(index, 1) : null;
+    }
+
+
+    removeOutput(output: Output)
+    {
+        const index = this.ports.findIndex(port => port.id === output.id);
+        return index > -1 ? this.ports.splice(index, 1) : null;
     }
 
 
