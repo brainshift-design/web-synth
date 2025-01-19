@@ -1,0 +1,16 @@
+.parameter 
+{
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    gap:            var(--gap-s);
+    margin:         var(--gap-s);
+}
+
+
+.parameter h2 
+{
+    font-size:   var(--font-s);
+    font-weight: 700;
+    color:       var(--color-node-text);
+} 

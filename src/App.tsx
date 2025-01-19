@@ -1,11 +1,12 @@
+import GraphView from './components/GraphView';
+
 function App() 
 {
-    return 
-    (
+    return (
         <div className="App">
-            <h1>Web Synth</h1>
+            <GraphView />
         </div>
-    )
+    );
 }
 
-export default App
+export default App;

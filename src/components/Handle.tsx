@@ -2,6 +2,7 @@ import { CSSProperties, useContext, useEffect, useRef } from 'react';
 import { ClassContext } from '../contexts/ClassContext';
 import handleStyles from './Handle.module.css';
 import Port from '../connections/Port';
+import { getHandleColor, getWireColor } from '../nodes/utils';
 
 export interface HandleProps
 {
@@ -20,13 +21,13 @@ export default function Handle(props: HandleProps)
     }, [props.port.connectionType]);
 
     const handleConnected = context?.edges.some(
-        (edge) => edge.target == props.port.node?.id && edge.targetHandle == props.id
+        (edge) => (console.log('props.port.node =', props.port.node), edge.target == props.port.node?.id && edge.targetHandle == props.id)
     );
 
     const handleColor = getHandleColor(props.port.connectionType);
 
     return (
-        <Handle
+        <div
             {...props}
             ref       = {handleRef}
             className = {handleStyles.inputHandle}

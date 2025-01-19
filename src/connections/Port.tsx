@@ -2,6 +2,7 @@ import Handle from '../components/Handle';
 import Parameter from '../parameters/Parameter';
 import { ConnectionType } from './ConnectionType';
 import { PortType } from './PortType';
+import Node from '../nodes/Node';
 
 export type ConnectHandler    = (port: Port) => void;
 export type DisconnectHandler = (port: Port) => void;

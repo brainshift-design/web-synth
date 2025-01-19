@@ -2,8 +2,7 @@ import 'reactflow/dist/style.css';
 import styles from './GraphView.module.css';
 import { useContext } from 'react';
 import ReactFlow, { Background } from 'reactflow';
-import { useFlowState } from '../hooks/useFlowState';
-import { reactEdgeTypes, reactNodeTypes } from '../nodes';
+import { useFlowState } from '../hooks/useFlowState.ts';
 import { ClassContext } from '../contexts/ClassContext';
 import ConnectingWire from './ConnectingWire';
 
@@ -15,8 +14,6 @@ export default function GraphView() {
     return (
         <div className={styles.graphView}>
             <ReactFlow
-                nodeTypes={reactNodeTypes}
-                edgeTypes={reactEdgeTypes}
                 nodes={nodeContext?.nodes}
                 edges={nodeContext?.edges}
                 connectionLineComponent={ConnectingWire}

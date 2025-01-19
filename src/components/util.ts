@@ -1,5 +1,5 @@
 import { ConnectionType } from '../nodes/connections';
-import { getSelectedWireColor, getWireColor } from '../nodes/util';
+import { getSelectedWireColor, getWireColor } from '../nodes/utils';
 
 export function getWireColors(sourceHandleId: string, targetHandleId: string) {
     const sourceHandle = document.querySelector(

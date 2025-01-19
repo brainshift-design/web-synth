@@ -1,5 +1,5 @@
 import { BaseEdge, ConnectionLineComponentProps, getBezierPath } from 'reactflow';
-import { nozero } from '../util';
+import { nozero } from '../utils';
 import { getWireColors } from './util';
 
 export default function ConnectingWire(props: ConnectionLineComponentProps) 

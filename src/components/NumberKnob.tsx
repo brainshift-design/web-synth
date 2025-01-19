@@ -10,7 +10,7 @@ import {
     useRef,
     useState,
 } from 'react';
-import { Tau } from '../util';
+import { Tau } from '../utils';
 
 interface NumberKnobProps {
     label: string;

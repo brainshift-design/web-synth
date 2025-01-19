@@ -2,6 +2,8 @@ import NumberParameter from '../parameters/NumberParameter';
 import SelectParameter from '../parameters/SelectParameter';
 import Node, { NodeProps } from './Node';
 import { OscillatorWaveform } from './OscillatorWaveform';
+import { Node as ReactFlowNode } from 'reactflow';
+
 
 export interface OscillatorNodeProps extends NodeProps
 {
@@ -9,10 +11,12 @@ export interface OscillatorNodeProps extends NodeProps
     frequency: number;
 }
 
+
 export default class OscillatorNode extends Node
 {
     waveform:  SelectParameter;
     frequency: NumberParameter;
+
 
     constructor(props: OscillatorNodeProps)
     {
@@ -36,5 +40,17 @@ export default class OscillatorNode extends Node
 
         this.addParameter(this.waveform);
         this.addParameter(this.frequency);
+    }
+
+
+    override createReactFlowNode(): ReactFlowNode 
+    {
+        return {
+            ...super.createReactFlowNode(),
+            data: {
+                frequency: 440,
+                type:      0
+            },
+        };
     }
 }
