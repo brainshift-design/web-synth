@@ -1,10 +1,11 @@
-import OscillatorNode from './OscillatorNode';
 import Connection from '../connections/Connection';
+import OscillatorNode from './OscillatorNode';
+import Node from './Node';
 
 
 export const nodeTypes = 
 {
-    oscillator: OscillatorNode,
+    [OscillatorNode.name.toLowerCase()]: Node.Component,
 };
 
 

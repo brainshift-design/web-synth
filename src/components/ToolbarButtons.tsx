@@ -1,10 +1,17 @@
-import { ReactElement } from 'react';
+import { ReactElement, useContext } from 'react';
 import PanelButton from './PanelButton';
 import Separator from './Separator';
-import { useFlowState } from '../hooks/useFlowState';
+import { OscillatorWaveform } from '../nodes/OscillatorWaveform';
+import { ClassContext } from '../contexts/ClassContext';
+import OscillatorNode from '../nodes/OscillatorNode';
+import { useReactFlow } from 'reactflow';
 
-export default function ToolbarButtons(): ReactElement {
-    const { createNode } = useFlowState();
+
+export default function ToolbarButtons(): ReactElement 
+{
+    const context = useContext(ClassContext);
+    const { screenToFlowPosition } = useReactFlow();
+    if (!context) throw new Error('ToolbarButtons must be used within a ClassProvider');
 
     return (
         <>
@@ -14,17 +21,29 @@ export default function ToolbarButtons(): ReactElement {
 
             <Separator />
 
-            <PanelButton onClick={() => createNode('oscillator')}>Osc</PanelButton>
-            <PanelButton onClick={() => createNode('noise')}>Nois</PanelButton>
-            <PanelButton onClick={() => createNode('gain')}>Gain</PanelButton>
-            <PanelButton onClick={() => createNode('delay')}>Del</PanelButton>
-            <PanelButton onClick={() => createNode('reverb')}>Rev</PanelButton>
-            <PanelButton onClick={() => createNode('filter')}>Flt</PanelButton>
-            <PanelButton onClick={() => createNode('compressor')}>Cmp</PanelButton>
-            <PanelButton onClick={() => createNode('distortion')}>Dst</PanelButton>
-            <PanelButton onClick={() => createNode('trigger')}>Trg</PanelButton>
-            <PanelButton onClick={() => createNode('envelope')}>Env</PanelButton>
-            <PanelButton onClick={() => createNode('_output')}>Out</PanelButton>
+            <PanelButton 
+                onClick={() => {
+                    const position = screenToFlowPosition({ x: 100, y: 100 });
+                    context.graph.addNode(
+                        new OscillatorNode({ 
+                            waveform:  OscillatorWaveform.Sine, 
+                            frequency: 440 
+                        }),
+                        position
+                    );
+                }}
+                onDragEnd={(position) => {
+                    const flowPosition = screenToFlowPosition(position);
+                    context.graph.addNode(
+                        new OscillatorNode({ 
+                            waveform:  OscillatorWaveform.Sine, 
+                            frequency: 440 
+                        }),
+                        flowPosition
+                    );
+                }}>
+                Osc
+            </PanelButton>
         </>
     );
 }

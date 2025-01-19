@@ -2,7 +2,9 @@ import toggleStyles from './Toggle.module.css';
 import paramStyles from '../parameters/Parameter.module.css';
 import { ChangeEvent, ChangeEventHandler, CSSProperties } from 'react';
 
-interface ToggleProps {
+
+interface ToggleProps 
+{
     name: string;
     value: boolean;
     toggleColor?: string;
@@ -10,14 +12,17 @@ interface ToggleProps {
     onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
+
 export default function Toggle({
     name: label,
     value,
     toggleColor = '#f4f3f1',
     valueColor = '#08f',
     onChange,
-}: ToggleProps) {
-    const handleClick = () => {
+}: ToggleProps) 
+{
+    const handleClick = () => 
+    {
         if (onChange) {
             onChange({
                 target: { value: (!value).toString() },

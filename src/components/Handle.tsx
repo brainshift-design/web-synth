@@ -1,6 +1,6 @@
+import handleStyles from './Handle.module.css';
 import { CSSProperties, useContext, useEffect, useRef } from 'react';
 import { ClassContext } from '../contexts/ClassContext';
-import handleStyles from './Handle.module.css';
 import Port from '../connections/Port';
 import { getHandleColor, getWireColor } from '../nodes/utils';
 

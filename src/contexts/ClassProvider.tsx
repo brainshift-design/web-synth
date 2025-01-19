@@ -1,24 +1,44 @@
 import { useState, type PropsWithChildren } from 'react';
-import { type Node, type Edge } from 'reactflow';
 import { ClassContext, type FilterType } from './ClassContext';
 import { audioContext } from '../audio/audio';
+import Graph from '../graph/Graph';
 
-export function ClassProvider({ children }: PropsWithChildren) {
-    const [nodes, setNodes] = useState<Node[]>([]);
-    const [edges, setEdges] = useState<Edge[]>([]);
+
+export function ClassProvider({ children }: PropsWithChildren) 
+{
+    const [graph] = useState(() => new Graph());
+    const [, setUpdateCounter] = useState(0);
     const [filterTypes, setFilterTypes] = useState<FilterType[]>([]);
 
-    const toggleAudio = (on: boolean) => {
-        if (on) {
-            audioContext?.resume();
-        } else {
-            audioContext?.suspend();
-        }
+
+    const toggleAudio = (on: boolean) => 
+    {
+        if (on) audioContext?.resume();
+        else    audioContext?.suspend();
     };
+
+
+    // force update when graph changes
+    const forceUpdate = () => setUpdateCounter(c => c + 1);
+    graph.onNodesChanged = forceUpdate;
+
 
     return (
         <ClassContext.Provider
-            value={{ nodes, edges, filterTypes, setNodes, setEdges, setFilterTypes, toggleAudio }}
+            value={{ 
+                graph,
+                nodes:    graph.reactNodes,
+                edges:    graph.reactEdges,
+                filterTypes, 
+                setEdges: (edgesOrFn) => {
+                    graph.reactEdges = 
+                        typeof edgesOrFn === 'function'
+                            ? edgesOrFn(graph.reactEdges) 
+                            : edgesOrFn;
+                },
+                setFilterTypes, 
+                toggleAudio 
+            }}
         >
             {children}
         </ClassContext.Provider>
