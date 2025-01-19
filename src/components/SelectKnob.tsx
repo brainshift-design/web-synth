@@ -2,7 +2,6 @@ import knobStyles from './Knob.module.css';
 import paramStyles from '../parameters/Parameter.module.css';
 import {
     ChangeEvent,
-    ChangeEventHandler,
     CSSProperties,
     PointerEvent as ReactPointerEvent,
     useCallback,
@@ -11,31 +10,20 @@ import {
     useState,
 } from 'react';
 import { Tau } from '../utils';
+import InputDisplay from './InputDisplay';
+import { KnobProps } from './Knob';
 
-interface SelectKnobProps 
+
+interface SelectKnobProps extends KnobProps
 {
-    label:            string;
-    value:            number;
-    options:          { value: string; label: string }[];
-    minAngle?:        number;
-    maxAngle?:        number;
-    sensitivity?:     number;
-    knobColor?:       string;
-    valueColor?:      string;
-    tickSize?:        number;
-    tickDistance?:    number;
-    adjustTickX?:     number;
-    adjustTickY?:     number;
-    adjustTickAngle?: number;
-    onChange?:        ChangeEventHandler<HTMLInputElement>;
+    value:   number;
+    options: { value: string; label: string }[];
 }
 
-export default function SelectKnob({
+export function SelectKnob({
     label,
     value,
     options,
-    minAngle        = Tau * -3/8,
-    maxAngle        = Tau *  3/8,
     sensitivity     = 0.005,
     knobColor       = '#f4f3f1',
     valueColor      = 'var(--color-node-value)',
@@ -45,7 +33,14 @@ export default function SelectKnob({
     adjustTickY     = 0,    // adjustment of ticks
     adjustTickAngle = 0.05, // because of CSS pixel grid issues
     onChange,
-}: SelectKnobProps) {
+}: SelectKnobProps) 
+{
+    const step        = Tau/10;
+    const spread      = step * (options.length-1);
+
+    const minAngle    = -spread/2;
+    const maxAngle    =  spread/2;
+
     const inputRef    = useRef<HTMLInputElement>(null);
     const onChangeRef = useRef(onChange);
 
@@ -141,9 +136,9 @@ export default function SelectKnob({
                 } as CSSProperties
             }
         >
-            <h2 className={knobStyles.display} style={{ color: 'var(--color-node-text)' }}>
-                {options.find((_, index) => index == Number(value))!.label}
-            </h2>
+            <InputDisplay 
+                text = {options.find((_, index) => index == knobValue)!.label}
+            />
 
             <div className={knobStyles.infoContainer}>
                 {Array.from({ length: nTicks }).map((_, index) => (
@@ -181,3 +176,5 @@ export default function SelectKnob({
         </div>
     );
 }
+
+export default SelectKnob;

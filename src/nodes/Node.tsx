@@ -3,7 +3,6 @@ import Port from '../connections/Port';
 import Graph from '../graph/Graph';
 import Parameter from '../parameters/Parameter';
 import { Node as ReactFlowNode, NodeProps as ReactFlowNodeProps } from 'reactflow';
-import { getTypeName } from './utils';
 import { PortType } from '../connections/PortType';
 import { createId } from '../utils';
 
@@ -11,6 +10,7 @@ import { createId } from '../utils';
 export interface NodeProps
 {
     id?:    string | null;
+    name?:  string | null;
     graph?: Graph | null;
 }
 
@@ -18,13 +18,15 @@ export interface NodeProps
 export default abstract class Node
 {
     readonly id: string;
+
+    name:        string;
     
-    graph:      Graph | null;
+    graph:       Graph | null;
     
-    parameters: Parameter[] = [];
-    ports:      Port[]      = [];
+    parameters:  Parameter[] = [];
+    ports:       Port[]      = [];
     
-    reactNode:  ReactFlowNode;
+    reactNode:   ReactFlowNode;
 
 
     get allPorts()
@@ -44,6 +46,7 @@ export default abstract class Node
     constructor(props: NodeProps)
     {
         this.id    = props.id ?? createId();
+        this.name  = props.name || '';
         this.graph = props.graph || null;
         
         this.reactNode = this.createReactFlowNode();
@@ -93,8 +96,8 @@ export default abstract class Node
     render(): React.ReactNode
     {
         return (
-            <div className={styles.node}>
-                <h1>{getTypeName(this.constructor as typeof Node)}</h1>
+            <div className={styles.node} draggable={false}>
+                <h1>{this.name}</h1>
                 <div className={styles.nodeContent}>
                     {this.renderInputPorts()}
                     {this.renderParameters()}
@@ -111,7 +114,7 @@ export default abstract class Node
             <> { 
                 this.ports
                     .filter(port => port.type === PortType.Input)
-                    .map(port => port.render())
+                    .map(port => <div key={port.id}>{port.render()}</div>)
             } </>
         );
     }
@@ -123,7 +126,7 @@ export default abstract class Node
             <> {
                 this.ports
                     .filter(port => port.type === PortType.Output)
-                    .map(port => port.render())
+                    .map(port => <div key={port.id}>{port.render()}</div>)
             } </>
         );
     }
@@ -134,7 +137,7 @@ export default abstract class Node
         return (
             <> {
                 this.parameters
-                    .map(param => param.render())
+                    .map(param => <div key={param.id}>{param.render()}</div>)
             } </>
         );
     }

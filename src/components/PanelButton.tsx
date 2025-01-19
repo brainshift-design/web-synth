@@ -1,6 +1,6 @@
+import styles from './PanelButton.module.css';
 import { CSSProperties, ReactNode, useRef } from 'react';
 
-import styles from './PanelButton.module.css';
 
 interface PanelButtonProps 
 {
@@ -27,7 +27,6 @@ export default function PanelButton({
         <button
             className = {styles.button}
             style     = {style}
-            onClick   = {onClick}
             
             onPointerDown = {(e) => 
             {
@@ -48,11 +47,11 @@ export default function PanelButton({
                 const dx = e.clientX - dragRef.current.x;
                 const dy = e.clientY - dragRef.current.y;
                 
-                if (   Math.abs(dx) > 5 
-                    || Math.abs(dy) > 5) 
+                if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
                     onDragEnd?.({ x: e.clientX, y: e.clientY });
-                else
+                } else if (!e.defaultPrevented) {
                     onClick?.();
+                }
                 
                 dragRef.current = null;
             }}

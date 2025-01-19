@@ -29,7 +29,7 @@ export default class ToggleParameter extends Parameter
     {
         return (
             <Toggle
-                name  = {this.name}
+                name  = {this.name }
                 value = {this.value} 
             />
         );

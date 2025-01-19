@@ -1,0 +1,18 @@
+.inputDisplay 
+{
+    width:         45px;
+    overflow:      hidden;
+    padding:       3px;
+    background:    #bdcf54;
+    font-family:   VT323;
+    font-size:     21px;
+    color:         #332844;
+    text-shadow:   0 1px 0.75px #30350944;
+    box-shadow:
+        0 0 0 1px #00000016 inset,
+        0 2px 3px #0002 inset,
+        0 -1px 0px #fff4 inset;
+    text-align:    center;
+    border-radius: 2px;
+    margin:        2px 0 4px 0;
+}

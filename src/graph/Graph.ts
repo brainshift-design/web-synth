@@ -2,7 +2,7 @@ import Connection from '../connections/Connection';
 import Input from '../connections/Input';
 import Output from '../connections/Output';
 import Node from '../nodes/Node';
-import { Node as ReactFlowNode, Edge } from 'reactflow';
+import { Node as ReactFlowNode, Edge, XYPosition } from 'reactflow';
 
 
 export default class Graph
@@ -21,8 +21,14 @@ export default class Graph
         nodes.forEach(reactNode => 
         {
             const node = this.nodes.find(n => n.id === reactNode.id);
-            if (node) node.reactNode = reactNode;
+            if (node) 
+            {
+                node.reactNode.position         = reactNode.position         as XYPosition;
+                node.reactNode.positionAbsolute = reactNode.positionAbsolute as XYPosition;
+            }
         });
+        
+        this.onNodesChanged?.();
     }
 
     set reactEdges(edges: Edge[]) 

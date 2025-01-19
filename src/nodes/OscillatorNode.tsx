@@ -19,18 +19,18 @@ export default class OscillatorNode extends Node
 
     constructor(props: OscillatorNodeProps)
     {
-        super(props);
+        super({ ...props, name: 'Oscillator' });
 
         this.addParameter(this.waveform = new SelectParameter({
             id:      'waveform',
-            name:    'Waveform',
+            name:    'Wave',
             options: Object.values(OscillatorWaveform),
             value:   Object.values(OscillatorWaveform).indexOf(OscillatorWaveform.Sine)
         }));
         
         this.addParameter(this.frequency = new NumberParameter({
             id:    'frequency',
-            name:  'Frequency',
+            name:  'Freq|Hz',
             value: 440,
             min:   20,
             max:   20000

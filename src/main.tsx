@@ -1,14 +1,17 @@
+import './tokens.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './tokens.css';
 import App from './App';
 import { ClassProvider } from './contexts/ClassProvider';
+import { ReactFlowProvider } from 'reactflow';
 
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <ClassProvider>
-            <App />
+            <ReactFlowProvider>
+                <App />
+            </ReactFlowProvider>
         </ClassProvider>
     </StrictMode>
 );

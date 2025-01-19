@@ -20,8 +20,9 @@ export default function Handle(props: HandleProps)
         if (handleRef.current) handleRef.current.dataset.handletype = props.port.connectionType;
     }, [props.port.connectionType]);
 
-    const handleConnected = context?.edges.some(
-        (edge) => (console.log('props.port.node =', props.port.node), edge.target == props.port.node?.id && edge.targetHandle == props.id)
+    const handleConnected = context?.edges.some((edge) => 
+           edge.target       == props.port.node?.id 
+        && edge.targetHandle == props.id
     );
 
     const handleColor = getHandleColor(props.port.connectionType);

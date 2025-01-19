@@ -1,8 +1,10 @@
-:root {
+:root 
+{
     --knob-size: 45px;
 }
 
-.knobContainer {
+.knobContainer 
+{
     --knob-base-color: #f0f4f5;
     display: flex;
     flex-direction: column;
@@ -13,25 +15,9 @@
     border-radius: var(--corner-xs);
 }
 
-.knobContainer .display {
-    width: 45px;
-    overflow: hidden;
-    padding: 3px;
-    background-color: #bdcf54;
-    font-family: VT323;
-    font-size: 21px;
-    color: #303509;
-    text-shadow: 0 2px 1.5px #30350955;
-    box-shadow:
-        0 2px 3px #0002 inset,
-        0 -1px 0px #fff4 inset;
-    text-align: center;
-    border-radius: 2px;
-    margin: 2px 0 4px 0;
-}
-
 .knobContainer .knob,
-.knobContainer .knobValue {
+.knobContainer .knobValue 
+{
     position: relative;
     top: 0;
     left: 0;
@@ -40,7 +26,8 @@
     margin: 0;
 }
 
-.knobContainer .infoContainer {
+.knobContainer .infoContainer 
+{
     width: 60px;
     height: 53px;
     position: relative;
@@ -48,7 +35,8 @@
     margin: 5px 3px 0 3px;
 }
 
-.knobContainer .inputContainer {
+.knobContainer .inputContainer 
+{
     width: var(--knob-size);
     height: var(--knob-size);
     position: absolute;
@@ -57,7 +45,8 @@
     transform: translateX(-50%) translateY(-50%);
 }
 
-.knobContainer .knob {
+.knobContainer .knob 
+{
     --knob-edge-highlight: oklch(from var(--knob-color) 85% 0.05 h);
     --knob-edge-shadow: oklch(from var(--knob-color) 50% 0.05 h);
     --knob-edge-shadow2: oklch(from var(--knob-color) 10% 0.05 h);
@@ -115,33 +104,38 @@
     cursor: pointer;
 }
 
-.knobContainer[data-knob-color] {
+.knobContainer[data-knob-color] 
+{
     --knob-base-color: var(--knob-color);
 }
 
-.knobContainer[data-value-color] {
+.knobContainer[data-value-color] 
+{
     --knob-base-color: var(--knob-value-color);
 }
 
-.knobContainer .knobValue {
-    position: absolute;
-    border-radius: 50%;
+.knobContainer .knobValue 
+{
+    position:       absolute;
+    border-radius:  50%;
     pointer-events: none;
 }
 
-.knobContainer .knobValue::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 3px;
-    height: 40%;
-    background: var(--knob-value-color);
-    transform: translate(-50%, -135%);
+.knobContainer .knobValue::after 
+{
+    content:       '';
+    position:      absolute;
+    top:           50%;
+    left:          50%;
+    width:         3px;
+    height:        40%;
+    background:    var(--knob-value-color);
+    transform:     translate(-50%, -135%);
     border-radius: 2px;
 }
 
-.knobContainer .knobTick {
+.knobContainer .knobTick 
+{
     position: absolute;
     width: 2px;
     left: 50%;
@@ -151,17 +145,20 @@
     transform-origin: bottom center;
 }
 
-.knobContainer .name {
+.knobContainer .name 
+{
     color: var(--color-node-text);
     font-weight: 700;
     margin-top: 2px;
     margin-bottom: 4px;
 }
 
-.knobName {
+.knobName 
+{
     font-weight: 600;
 }
 
-.knobUnit {
+.knobUnit 
+{
     font-weight: 400;
 }

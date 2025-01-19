@@ -12,6 +12,7 @@ export interface ClassContextProps {
     nodes: Node[];
     edges: Edge[];
     filterTypes: FilterType[];
+    setNodes: (nodes: Node[] | ((nodes: Node[]) => Node[])) => void;
     setEdges: (edges: Edge[] | ((edges: Edge[]) => Edge[])) => void;
     setFilterTypes: (types: FilterType[]) => void;
     toggleAudio: (on: boolean) => void;

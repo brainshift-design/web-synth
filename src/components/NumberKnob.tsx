@@ -2,7 +2,6 @@ import knobStyles from './Knob.module.css';
 import paramStyles from '../parameters/Parameter.module.css';
 import {
     ChangeEvent,
-    ChangeEventHandler,
     CSSProperties,
     PointerEvent as ReactPointerEvent,
     useCallback,
@@ -11,32 +10,24 @@ import {
     useState,
 } from 'react';
 import { Tau } from '../utils';
+import InputDisplay from './InputDisplay';
+import { KnobProps } from './Knob';
 
-interface NumberKnobProps {
-    label: string;
-    min: number;
-    max: number;
-    value: number;
-    showValue?: boolean;
-    forcePlus?: boolean;
+
+interface NumberKnobProps extends KnobProps
+{
+    min:             number;
+    max:             number;
+    value:           number;
+    showValue?:      boolean;
+    forcePlus?:      boolean;
     getCurvedValue?: (val: number, min: number, max: number) => number;
-    getCurvedTick?: (val: number, min: number, max: number) => number;
-    decimals?: number;
-    padding?: number;
-    padChar?: string;
-    suffix?: string;
-    sensitivity?: number;
-    knobColor?: string;
-    valueColor?: string;
-    minAngle?: number;
-    maxAngle?: number;
-    ticks?: number;
-    tickSize?: number;
-    tickDistance?: number;
-    adjustTickX?: number;
-    adjustTickY?: number;
-    adjustTickAngle?: number;
-    onChange?: ChangeEventHandler<HTMLInputElement>;
+    getCurvedTick?:  (val: number, min: number, max: number) => number;
+    decimals?:       number;
+    padding?:        number;
+    padChar?:        string;
+    suffix?:         string;
+    ticks?:          number;
 }
 
 export default function NumberKnob({
@@ -44,27 +35,28 @@ export default function NumberKnob({
     min,
     max,
     value,
-    showValue = true,
-    forcePlus = false,
-    getCurvedValue = (val) => val,
-    getCurvedTick = (val) => val,
-    decimals = 0,
-    padding = 0,
-    padChar = ' ',
-    suffix = '',
-    sensitivity = 0.002,
-    knobColor = '#f4f3f1',
-    valueColor = 'var(--color-node-value)',
-    minAngle = (Tau * -3) / 8,
-    maxAngle = (Tau * 3) / 8,
-    ticks = 15,
-    tickSize = 3,
-    tickDistance = 27,
-    adjustTickX = -1, // these are for manual
-    adjustTickY = 0, // adjustment of ticks
+    showValue       = true,
+    forcePlus       = false,
+    getCurvedValue  = (val) => val,
+    getCurvedTick   = (val) => val,
+    decimals        = 0,
+    padding         = 0,
+    padChar         = ' ',
+    suffix          = '',
+    sensitivity     = 0.002,
+    knobColor       = '#f4f3f1',
+    valueColor      = 'var(--color-node-value)',
+    minAngle        = Tau * -3/8,
+    maxAngle        = Tau *  3/8,
+    ticks           = 15,
+    tickSize        = 3,
+    tickDistance    = 27,
+    adjustTickX     = -1,   // these are for manual
+    adjustTickY     = 0,    // adjustment of ticks
     adjustTickAngle = 0.05, // because of CSS pixel grid issues
     onChange,
-}: NumberKnobProps) {
+}: NumberKnobProps) 
+{
     const inputRef = useRef<HTMLInputElement>(null);
     const onChangeRef = useRef(onChange);
 
@@ -160,9 +152,9 @@ export default function NumberKnob({
 
     return (
         <div
-            className={`${paramStyles.parameter} ${knobStyles.knobContainer}`}
-            data-knob-color={knobColor}
-            data-value-color={valueColor}
+            className        = {`${paramStyles.parameter} ${knobStyles.knobContainer}`}
+            data-knob-color  = {knobColor}
+            data-value-color = {valueColor}
             style={
                 {
                     '--knob-color':       knobColor,
@@ -170,9 +162,10 @@ export default function NumberKnob({
                 } as CSSProperties
             }
         >
-            <h2 className={knobStyles.display} style={{ color: 'var(--color-node-text)' }}>
-                {showValue ? strValue : ' '}
-            </h2>
+            <InputDisplay
+                text      = {strValue}
+                showValue = {showValue}
+            />
 
             <div className={knobStyles.infoContainer}>
                 {Array.from({ length: ticks }).map((_, index) => (
@@ -196,7 +189,10 @@ export default function NumberKnob({
 
                     <div
                         className={knobStyles.knobValue}
-                        style={{ transform: `rotate(${valueAngle}rad)` }}
+                        style=
+                        {{ 
+                            transform: `rotate(${valueAngle}rad)`
+                        }}
                     ></div>
                 </div>
             </div>

@@ -2,16 +2,24 @@ import { useCallback, useContext } from 'react';
 import { Connection, Edge, Node, OnConnect, OnEdgesChange, OnNodesChange, addEdge, applyEdgeChanges, applyNodeChanges } from 'reactflow';
 import { ClassContext } from '../contexts/ClassContext';
 
-export function useFlowState() 
+export default function useFlowState() 
 {
     const context = useContext(ClassContext);
     if (!context) throw new Error('useFlowState must be used within a ClassProvider');
 
     const onNodesChange: OnNodesChange = useCallback(
         (changes) => {
-            const updatedNodes = applyNodeChanges(changes, context.nodes);
-            // Update positions in the graph's reactNodes
-            context.graph.reactNodes = updatedNodes;
+            // Only apply changes if they're position changes
+            const positionChanges = changes.filter(change => 
+                change.type === 'position' && 
+                (change.position?.x !== context.nodes[0]?.position.x || 
+                 change.position?.y !== context.nodes[0]?.position.y)
+            );
+            
+            if (positionChanges.length > 0) {
+                const updatedNodes = applyNodeChanges(changes, context.nodes);
+                context.setNodes(updatedNodes);
+            }
         },
         [context]
     );

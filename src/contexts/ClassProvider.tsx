@@ -29,7 +29,14 @@ export function ClassProvider({ children }: PropsWithChildren)
                 graph,
                 nodes:    graph.reactNodes,
                 edges:    graph.reactEdges,
-                filterTypes, 
+                filterTypes,
+                setNodes: (nodesOrFn) => {
+                    const newNodes = typeof nodesOrFn === 'function'
+                        ? nodesOrFn(graph.reactNodes)
+                        : nodesOrFn;
+                    
+                    graph.reactNodes = newNodes;
+                }, 
                 setEdges: (edgesOrFn) => {
                     graph.reactEdges = 
                         typeof edgesOrFn === 'function'
